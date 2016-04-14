@@ -180,6 +180,34 @@ public class QueryRunner {
 		return runQuery(queryString);
 	}
 	
+	// find a similar pokemon
+	// Only returns number and name. Run search query to retrieve full data. 
+	public List<Map<String, String>> findSimilar(String number) throws IOException {
+		String queryString = 
+			"PREFIX pkm: <http://pokedex.dataincubator.org/pkm/> " +
+			"SELECT DISTINCT " +
+			"      ?number ?name " +
+			"WHERE {" +
+			"      ?pokemon1 pkm:nationalNumber " + number + ". " + 	// find first Pokemon with number
+			"      ?pokemon1 pkm:type ?type1. " +
+			"      ?pokemon1 pkm:colour ?color1. " +
+			"      ?pokemon1 pkm:length ?height1. " +
+			"      ?pokemon1 pkm:weight ?weight1. " +
+			"      ?pokemon2 pkm:type ?type2. " +
+			"      ?pokemon2 pkm:colour ?color2. " +
+			"      ?pokemon2 pkm:length ?height2. " +
+			"      ?pokemon2 pkm:weight ?weight2. " +
+			"      ?pokemon2 pkm:nationalNumber ?number. " +
+			"      ?pokemon2 <http://www.w3.org/2000/01/rdf-schema#label> ?name. " +
+			"      FILTER (?pokemon2 != ?pokemon1) " +  // pokemon2 is different than pokemon 1
+			"      FILTER (?weight2 < ?weight1 * 1.5) " +
+			"      FILTER (?weight2 > ?weight1 / 1.5) " +
+			"      FILTER (?color2 = ?color1 || ?type2 = ?type1) " +  // either color or type matches
+			"} " +
+			"ORDER BY RAND() LIMIT 1";  // return a random result
+		return runQuery(queryString);
+	}
+	
 	public static List<Map<String, String>> runQuery(String queryString) throws IOException {
 		InputStream in = new FileInputStream(new File("Pokedex.rdf"));
 		Model model = ModelFactory.createDefaultModel();
@@ -193,7 +221,7 @@ public class QueryRunner {
 		ResultSet results = qe.execSelect();
 
 		// uncomment the line below to print output in console instead
-//		ResultSetFormatter.out(System.out, results, query);
+		ResultSetFormatter.out(System.out, results, query);
 
 		List<Map<String, String>> resultsList = new LinkedList<Map<String, String>>();
 		while (results.hasNext()) {
@@ -215,32 +243,33 @@ public class QueryRunner {
 	public static void main(String[] args) throws IOException {
 		QueryRunner queryRunner = new QueryRunner();
 		// queryRunner.searchByName("Pi");
-		// queryRunner.searchByNumber("1");
+//		 queryRunner.searchByNumber("1");
 		// queryRunner.advancedSearch("Grass", null, "> 5", null, null, null,
 		// null, null, null, null, "weight", "DESC");
 
-		Map<String, String> pokemon1Attrs = queryRunner.searchByNumber("1").get(0);
-		Map<String, String> pokemon2Attrs = queryRunner.searchByNumber("2").get(0);
-		BattlePokemon pokemon1 = new BattlePokemon(
-				pokemon1Attrs.get("name"),
-				Integer.parseInt(pokemon1Attrs.get("attack")),
-				Integer.parseInt(pokemon1Attrs.get("defense")),
-				Integer.parseInt(pokemon1Attrs.get("spAttack")),
-				Integer.parseInt(pokemon1Attrs.get("spDefense")),
-				Integer.parseInt(pokemon1Attrs.get("speed")),
-				Integer.parseInt(pokemon1Attrs.get("hp")),
-				PokemonType.parsePokemonTypes(pokemon1Attrs.get("types")));
-		BattlePokemon pokemon2 = new BattlePokemon(
-				pokemon2Attrs.get("name"),
-				Integer.parseInt(pokemon2Attrs.get("attack")),
-				Integer.parseInt(pokemon2Attrs.get("defense")),
-				Integer.parseInt(pokemon2Attrs.get("spAttack")),
-				Integer.parseInt(pokemon2Attrs.get("spDefense")),
-				Integer.parseInt(pokemon2Attrs.get("speed")),
-				Integer.parseInt(pokemon2Attrs.get("hp")),
-				PokemonType.parsePokemonTypes(pokemon2Attrs.get("types")));
-		
-		BattleResult result = Battle.battle(pokemon1, pokemon2);
+		queryRunner.findSimilar("6");
+//		Map<String, String> pokemon1Attrs = queryRunner.searchByNumber("1").get(0);
+//		Map<String, String> pokemon2Attrs = queryRunner.searchByNumber("2").get(0);
+//		BattlePokemon pokemon1 = new BattlePokemon(
+//				pokemon1Attrs.get("name"),
+//				Integer.parseInt(pokemon1Attrs.get("attack")),
+//				Integer.parseInt(pokemon1Attrs.get("defense")),
+//				Integer.parseInt(pokemon1Attrs.get("spAttack")),
+//				Integer.parseInt(pokemon1Attrs.get("spDefense")),
+//				Integer.parseInt(pokemon1Attrs.get("speed")),
+//				Integer.parseInt(pokemon1Attrs.get("hp")),
+//				PokemonType.parsePokemonTypes(pokemon1Attrs.get("types")));
+//		BattlePokemon pokemon2 = new BattlePokemon(
+//				pokemon2Attrs.get("name"),
+//				Integer.parseInt(pokemon2Attrs.get("attack")),
+//				Integer.parseInt(pokemon2Attrs.get("defense")),
+//				Integer.parseInt(pokemon2Attrs.get("spAttack")),
+//				Integer.parseInt(pokemon2Attrs.get("spDefense")),
+//				Integer.parseInt(pokemon2Attrs.get("speed")),
+//				Integer.parseInt(pokemon2Attrs.get("hp")),
+//				PokemonType.parsePokemonTypes(pokemon2Attrs.get("types")));
+//		
+//		BattleResult result = Battle.battle(pokemon1, pokemon2);
 
 	}
 }
