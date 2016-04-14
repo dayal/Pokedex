@@ -18,7 +18,7 @@ public class RequestHandler {
 //			}
 //			return output.toString();
 //		});
-			return queryRunner.findPokemonById(Integer.parseInt(req.params(":id")));
+			return queryRunner.findPokemonByNumber(Integer.parseInt(req.params(":id")));
 		}, new JsonTransformer());
 	}
 }
