@@ -1,3 +1,5 @@
+import java.text.DecimalFormat;
+
 public class Battle {
 	
 	public static int LEVEL = 30;  // Set level to 30 for simplicity
@@ -19,35 +21,35 @@ public class Battle {
 			if (goesFirst) {
 				hpLeft2 -= calculateDamage(pokemon1.getAttack(), pokemon2.getDefense(), pokemon1.getSpAttack(), pokemon2.getSpDefense(), effectivenessModifier1);
 				battleLog.append(pokemon1.getName() + " attacked! ");
-				battleLog.append(pokemon2.getName() + " has " + Math.max(0, hpLeft2) + " hp left.\n");
+				battleLog.append(pokemon2.getName() + " has " + new DecimalFormat("##").format(Math.max(0, hpLeft2)) + " hp left.\n");
 				if (hpLeft2 <= 0) {
 					hasWon = true;
-					battleLog.append(pokemon1.getName() + " has won!\n");
+					battleLog.append(pokemon1.getName() + " wins!\n");
 					break;
 				}
 				hpLeft1 -= calculateDamage(pokemon2.getAttack(), pokemon1.getDefense(), pokemon2.getSpAttack(), pokemon1.getSpDefense(), effectivenessModifier2);
 				battleLog.append(pokemon2.getName() + " attacked! ");
-				battleLog.append(pokemon1.getName() + " has " + Math.max(0, hpLeft1) + " hp left.\n");
+				battleLog.append(pokemon1.getName() + " has " + new DecimalFormat("##").format(Math.max(0, hpLeft1)) + " hp left.\n");
 				if (hpLeft1 <= 0) {
 					hasWon = false;
-					battleLog.append(pokemon2.getName() + " has won!\n");
+					battleLog.append(pokemon2.getName() + " wins!\n");
 					break;
 				}
 			} else {
 				hpLeft1 -= calculateDamage(pokemon2.getAttack(), pokemon1.getDefense(), pokemon2.getSpAttack(), pokemon1.getSpDefense(), effectivenessModifier2);
 				battleLog.append(pokemon2.getName() + " attacked! ");
-				battleLog.append(pokemon1.getName() + " has " + Math.max(0, hpLeft1) + " hp left.\n");
+				battleLog.append(pokemon1.getName() + " has " + new DecimalFormat("##").format(Math.max(0, hpLeft1)) + " hp left.\n");
 				if (hpLeft1 <= 0) {
 					hasWon = false;
-					battleLog.append(pokemon2.getName() + " has won!\n");
+					battleLog.append(pokemon2.getName() + " wins!\n");
 					break;
 				}
 				hpLeft2 -= calculateDamage(pokemon1.getAttack(), pokemon2.getDefense(), pokemon1.getSpAttack(), pokemon2.getSpDefense(), effectivenessModifier1);
 				battleLog.append(pokemon1.getName() + " attacked! ");
-				battleLog.append(pokemon2.getName() + " has " + Math.max(0, hpLeft2) + " hp left.\n");
+				battleLog.append(pokemon2.getName() + " has " + new DecimalFormat("##").format(Math.max(0, hpLeft2)) + " hp left.\n");
 				if (hpLeft2 <= 0) {
 					hasWon = true;
-					battleLog.append(pokemon1.getName() + " has won!\n");
+					battleLog.append(pokemon1.getName() + " wins!\n");
 					break;
 				}
 			}

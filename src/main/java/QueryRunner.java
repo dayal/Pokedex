@@ -29,6 +29,7 @@ public class QueryRunner {
 			"SELECT " +
 			"      ?number" +		
 			"      ?name" +
+			"      ?numberAndName" +  
 			"      (GROUP_CONCAT(?typeName;separator=\"|\") as ?types)" + // aggregate types (seperated by semicolon) since each Pokemon can have 1-2 types
 			"      ?color" +
 			"      ?height" +
@@ -44,6 +45,7 @@ public class QueryRunner {
 			"WHERE {" +
 			"      ?pokemon pkm:nationalNumber ?number. " + 	// find Pokemon with number
 			"      ?pokemon <http://www.w3.org/2000/01/rdf-schema#label> ?name. " +
+			"      BIND(CONCAT(?name, \" #\", str(?number)) as ?numberAndName) " +  // used for UI search
 			"      ?pokemon pkm:type ?type. " +
 			"      ?type <http://www.w3.org/2000/01/rdf-schema#label> ?typeDescription. " +
 			"	   BIND(REPLACE(?typeDescription, \" Type\", \"\") AS ?typeName). " +
@@ -62,7 +64,7 @@ public class QueryRunner {
 			"	   FILTER (langMatches(lang(?description), \"EN\")) " +	// only return English description
 			"	   FILTER contains(str(?image), \"legendarypokemon.net\") " +  // only return url of image from legendarypokemon.net
 			"}" +
-			"GROUP BY ?number ?name ?color ?description ?height ?weight ?image ?attack ?defense ?spAttack ?spDefense ?speed ?hp " +
+			"GROUP BY ?number ?name ?numberAndName ?color ?description ?height ?weight ?image ?attack ?defense ?spAttack ?spDefense ?speed ?hp " +
 			"ORDER BY ?number LIMIT 10";  // return 10 results ordered by number
 		return runQuery(queryString);
 	}
@@ -74,6 +76,7 @@ public class QueryRunner {
 			"SELECT " +
 			"      ?number" +
 			"      ?name" +
+			"      ?numberAndName" +  
 			"      (GROUP_CONCAT(?typeName;separator=\"|\") as ?types)" +
 			"      ?color" +
 			"      ?height" +
@@ -89,6 +92,7 @@ public class QueryRunner {
 			"WHERE {" +
 			"      ?pokemon <http://www.w3.org/2000/01/rdf-schema#label> ?name. " +
 			"      ?pokemon pkm:nationalNumber ?number. " +
+			"      BIND(CONCAT(?name, \" #\", str(?number)) as ?numberAndName) " +  // used for UI search
 			"      ?pokemon pkm:type ?type. " +
 			"      ?type <http://www.w3.org/2000/01/rdf-schema#label> ?typeDescription. " +
 			"	   BIND(REPLACE(?typeDescription, \" Type\", \"\") AS ?typeName). " +
@@ -107,7 +111,7 @@ public class QueryRunner {
 			"	   FILTER (langMatches(lang(?description), \"EN\")) " +	// only return English description
 			"	   FILTER contains(str(?image), \"legendarypokemon.net\") " +  // only return url of image from legendarypokemon.net
 			"}" +
-			"GROUP BY ?number ?name ?color ?description ?height ?weight ?image ?attack ?defense ?spAttack ?spDefense ?speed ?hp " +
+			"GROUP BY ?number ?name ?numberAndName ?color ?description ?height ?weight ?image ?attack ?defense ?spAttack ?spDefense ?speed ?hp " +
 			"ORDER BY ?name LIMIT 10";  // return 10 results ordered by name
 		return runQuery(queryString);
 	}
@@ -120,6 +124,7 @@ public class QueryRunner {
 				"SELECT " +
 				"      ?number" +
 				"      ?name" +
+				"      ?numberAndName" +  
 				"      (GROUP_CONCAT(?typeName;separator=\"|\") as ?types)" +
 				"      ?color" +
 				"      ?height" +
@@ -135,6 +140,7 @@ public class QueryRunner {
 				"WHERE {" +
 				"      ?pokemon <http://www.w3.org/2000/01/rdf-schema#label> ?name. " +
 				"      ?pokemon pkm:nationalNumber ?number. " +
+				"      BIND(CONCAT(?name, \" #\", str(?number)) as ?numberAndName) " + 
 				"      ?pokemon pkm:type ?type. " +
 				"      ?type <http://www.w3.org/2000/01/rdf-schema#label> ?typeDescription. " +
 				"	   BIND(REPLACE(?typeDescription, \" Type\", \"\") AS ?typeName). " +
@@ -172,11 +178,11 @@ public class QueryRunner {
 				"	   FILTER (langMatches(lang(?description), \"EN\")) " +	// only return English description
 				"	   FILTER contains(str(?image), \"legendarypokemon.net\") " +  // only return url of image from legendarypokemon.net
 				"}" +
-				"GROUP BY ?number ?name ?color ?description ?height ?weight ?image ?attack ?defense ?spAttack ?spDefense ?speed ?hp " +
+				"GROUP BY ?number ?name ?numberAndName ?color ?description ?height ?weight ?image ?attack ?defense ?spAttack ?spDefense ?speed ?hp " +
 				(sortBy != null && sortOrder != null ?  // sort by which attribute and whether the order is ASC or DESC
 				"ORDER BY " + sortOrder + "(?" + sortBy + ") " :
 				"ORDER BY ?name ") +
-				"LIMIT 20";
+				"LIMIT 10";
 		return runQuery(queryString);
 	}
 	
@@ -202,6 +208,8 @@ public class QueryRunner {
 			"      FILTER (?pokemon2 != ?pokemon1) " +  // pokemon2 is different than pokemon 1
 			"      FILTER (?weight2 < ?weight1 * 1.5) " +
 			"      FILTER (?weight2 > ?weight1 / 1.5) " +
+			"      FILTER (?height2 < ?height1 * 1.5) " +
+			"      FILTER (?height2 > ?height1 / 1.5) " +
 			"      FILTER (?color2 = ?color1 || ?type2 = ?type1) " +  // either color or type matches
 			"} " +
 			"ORDER BY RAND() LIMIT 1";  // return a random result
@@ -227,6 +235,9 @@ public class QueryRunner {
 		while (results.hasNext()) {
 			Map<String, String> map = new HashMap<String, String>();
 			QuerySolution result = results.next();
+			if (result.getLiteral("name") == null) {
+				break;
+			}
 			Iterator<String> varNames = result.varNames();
 			while (varNames.hasNext()) {
 				String varName = varNames.next();
@@ -243,14 +254,14 @@ public class QueryRunner {
 	public static void main(String[] args) throws IOException {
 		QueryRunner queryRunner = new QueryRunner();
 		// queryRunner.searchByName("Pi");
-//		 queryRunner.searchByNumber("1");
+		 queryRunner.searchByNumber("1");
 		// queryRunner.advancedSearch("Grass", null, "> 5", null, null, null,
 		// null, null, null, null, "weight", "DESC");
-
-		Map<String, String> similarPokemon = queryRunner.findSimilar("1").get(0);
-		String similarPokemonNumber = similarPokemon.get("number");
+//
+//		Map<String, String> similarPokemon = queryRunner.findSimilar("1").get(0);
+//		String similarPokemonNumber = similarPokemon.get("number");
 		
-		queryRunner.searchByNumber(similarPokemonNumber);
+//		queryRunner.searchByNumber(similarPokemonNumber);
 		
 //		Map<String, String> pokemon1Attrs = queryRunner.searchByNumber("1").get(0);
 //		Map<String, String> pokemon2Attrs = queryRunner.searchByNumber("2").get(0);

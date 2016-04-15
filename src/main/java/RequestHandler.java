@@ -69,6 +69,12 @@ public class RequestHandler {
 			
 			return queryRunner.searchByNumber(similarPokemonNumber);
 		}, new JsonTransformer());
+
+		after((req, res) -> {
+			res.status(200);
+			res.header("Access-Control-Allow-Origin", "*");
+			res.type("application/json");
+		});
 	}
 	
 

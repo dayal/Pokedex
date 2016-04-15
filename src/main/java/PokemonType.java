@@ -11,7 +11,7 @@ public enum PokemonType {
 	GHOST(7, "ghost"),
 	STEEL(8, "steel"),
 	FIRE(9, "fire"),
-	WATER(11, "water"),
+	WATER(10, "water"),
 	GRASS(11, "grass"),
 	ELECTRIC(12, "electric"),
 	PSYCHIC(13, "psychic"),

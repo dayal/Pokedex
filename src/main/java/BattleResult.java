@@ -3,7 +3,7 @@ public class BattleResult {
 	boolean hasWon;
 	BattlePokemon pokemon1;
 	BattlePokemon pokemon2;
-	String battlelog;
+	String battleLog;
 
 	public boolean isHasWon() {
 		return hasWon;
@@ -17,8 +17,8 @@ public class BattleResult {
 		return pokemon2;
 	}
 
-	public String getBattlelog() {
-		return battlelog;
+	public String getBattleLog() {
+		return battleLog;
 	}
 
 	public BattleResult(boolean hasWon, BattlePokemon pokemon1, BattlePokemon pokemon2, String battleLog) {
@@ -26,6 +26,6 @@ public class BattleResult {
 		this.hasWon = hasWon;
 		this.pokemon1 = pokemon1;
 		this.pokemon2 = pokemon2;
-		this.battlelog = battleLog;
+		this.battleLog = battleLog;
 	}
 }
