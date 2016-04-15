@@ -26,5 +26,6 @@ public class BattleResult {
 		this.hasWon = hasWon;
 		this.pokemon1 = pokemon1;
 		this.pokemon2 = pokemon2;
+		this.battlelog = battleLog;
 	}
 }

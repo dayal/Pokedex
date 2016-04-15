@@ -221,7 +221,7 @@ public class QueryRunner {
 		ResultSet results = qe.execSelect();
 
 		// uncomment the line below to print output in console instead
-		ResultSetFormatter.out(System.out, results, query);
+//		ResultSetFormatter.out(System.out, results, query);
 
 		List<Map<String, String>> resultsList = new LinkedList<Map<String, String>>();
 		while (results.hasNext()) {
@@ -247,7 +247,11 @@ public class QueryRunner {
 		// queryRunner.advancedSearch("Grass", null, "> 5", null, null, null,
 		// null, null, null, null, "weight", "DESC");
 
-		queryRunner.findSimilar("6");
+		Map<String, String> similarPokemon = queryRunner.findSimilar("1").get(0);
+		String similarPokemonNumber = similarPokemon.get("number");
+		
+		queryRunner.searchByNumber(similarPokemonNumber);
+		
 //		Map<String, String> pokemon1Attrs = queryRunner.searchByNumber("1").get(0);
 //		Map<String, String> pokemon2Attrs = queryRunner.searchByNumber("2").get(0);
 //		BattlePokemon pokemon1 = new BattlePokemon(
