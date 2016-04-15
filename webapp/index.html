@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Pokédex</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Loading Bootstrap -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Loading Flat UI -->
+        <link href="css/flat-ui.css" rel="stylesheet">
+
+        <link href="css/pokedex.css" rel="stylesheet">
+
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+        <!--[if lt IE 9]>
+          <script src="js/html5shiv.js"></script>
+          <script src="js/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <h1>Pokédex</h1>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#pokedex" data-toggle="tab">Pokédex</a></li>
+            <li><a href="#discover" data-toggle="tab">Discover</a></li>
+            <li><a href="#friend" data-toggle="tab">Find Friend</a></li>
+            <li><a href="#battle" data-toggle="tab">Battle</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <!-- Pokedex -->
+            <div class="container tab-pane active" id="pokedex">
+                <h4>Search Pokemon by name or number!</h4>
+                <div class="search">
+                    <input class="form-control typeahead" id="pokedexSearch" type="text" placeholder="Enter Pokemon name or number"/>
+                </div>
+                <div id="pokedex-entry">
+                    <h3 class="name-and-number"></h3>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <img class="img-rounded img-responsive image" src="http://www.legendarypokemon.net/images/dp_artwork/1.png" height="230px">
+                        </div>
+                        <div class="col-sm-8">
+                          <p class="description"></p>
+                          <div class="stats">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Type</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="type"></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Color</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="color"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Height</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="height"></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Weight</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="weight"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Attack</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="attack"></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Defense</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="defense"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Sp. Attack</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="sp-attack"></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Sp. Defense</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="sp-defense"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <span class="stats-label">Speed</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="speed"></span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="stats-label">HP</span>
+                                </div>
+                                <div class="col-sm-3">
+                                    <span class="hp"></span>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discover -->
+            <div class="container tab-pane" id="discover">
+                <h4>What kind of pokemons are you looking for?</h4>
+                <form>
+                    <div class="form-group">
+                        <label class="checkbox" for="typeCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="typeCheckbox">
+                            Type
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="typeSelection">
+                            <option>Normal</option>
+                            <option>Fight</option>
+                            <option>Flying</option>
+                            <option>Poison</option>
+                            <option>Ground</option>
+                            <option>Rock</option>
+                            <option>Bug</option>
+                            <option>Ghost</option>
+                            <option>Steel</option>
+                            <option>Fire</option>
+                            <option>Water</option>
+                            <option>Grass</option>
+                            <option>Electric</option>
+                            <option>Psychic</option>
+                            <option>Ice</option>
+                            <option>Dragon</option>
+                            <option>Dark</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="colorCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="colorCheckbox">
+                            Color
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="colorSelection">
+                            <option value="gray">Gray</option>
+                            <option value="purple">Purple</option>
+                            <option value="blue">Blue</option>
+                            <option value="red">Red</option>
+                            <option value="pink">Pink</option>
+                            <option value="brown">Brown</option>
+                            <option value="green">Green</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="white">White</option>
+                            <option value="black">Black</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="heightCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="heightCheckbox">
+                            Height
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="heightSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="heightInput" />
+                            <span class="input-group-addon">meter</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="weightCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="weightCheckbox">
+                            Weight
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="weightSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="weightInput" />
+                            <span class="input-group-addon">kg</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="attackCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="attackCheckbox">
+                            Attack
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="attackSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="attackInput" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="defenseCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="defenseCheckbox">
+                            Defense
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="defenseSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="defenseInput" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="spAttackCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="spAttackCheckbox">
+                            Special Attack
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="spAttackSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="spAttackInput" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="spDefenseCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="spDefenseCheckbox">
+                            Special Defense
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="spDefenseSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="spDefenseInput" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="speedCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="speedCheckbox">
+                            Speed
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="speedSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="speedInput"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox" for="hpCheckbox">
+                            <input type="checkbox" data-toggle="checkbox" id="hpCheckbox">
+                            HP
+                        </label>
+                        <select data-toggle="select" class="select select-default mrs mbm" id="hpSelection">
+                            <option>&gt;</option>
+                            <option>=</option>
+                            <option>&lt;</option>
+                        </select>
+                        <div class="input-group">
+                            <input type="number" class="form-control" id="hpInput"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sortBySelection" style="padding-left: 31px">
+                            Sort By
+                        </label>
+                        <select data-toggle="select" class="select select-primary mrs mbm" id="sortBySelection">
+                            <option value="name">Name</option>
+                            <option value="number">Number</option>
+                            <option value="types">Type</option>
+                            <option value="color">Color</option>
+                            <option value="height">Height</option>
+                            <option value="weight">Weight</option>
+                            <option value="attack">Attack</option>
+                            <option value="defense">Defense</option>
+                            <option value="spAttack">Special Attack</option>
+                            <option value="spDefense">Special Defense</option>
+                            <option value="speed">Speed</option>
+                            <option value="hp">HP</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderSelection" style="padding-left: 31px">
+                            Order
+                        </label>
+                        <select data-toggle="select" class="select select-primary mrs mbm" id="orderSelection">
+                            <option value="ASC">Ascending</option>
+                            <option value="DESC">Descending</option>
+                        </select>
+                    </div>
+                    <div class="form-group submit">
+                        <button class="btn btn-hg btn-primary" id="submit" onClick="discover()">Discover!</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Find Friend -->
+            <div class="container tab-pane" id="friend">
+                <h4>Find your Pokémon's friends!</h4>
+                <div class="search">
+                    <input class="form-control typeahead" id="friendSearch" type="text" placeholder="Enter Pokemon name or number"/>
+                </div>
+            </div>
+
+            <!-- Battle -->
+            <div class="container tab-pane" id="battle">
+                <h4>Select two Pokemons to battle against each other!</h4>
+                <div class="search battle-search">
+                    <input class="form-control typeahead" id="battleSearch1" type="text" placeholder="Enter first Pokemon's name or number"/>
+                </div>
+
+                <div class="search battle-search">
+                    <input class="form-control typeahead" id="battleSearch2" type="text" placeholder="Enter second Pokemon's name or number"/>
+                </div>
+                <div style="clear:both"></div>
+                <div class="form-group submit" id="startBattle">
+                    <button class="btn btn-hg btn-primary" onClick="battle()">Battle!</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/typeahead.bundle.js"></script>
+        <script src="js/flat-ui.js"></script>
+        <script src="js/bootstrap.js"></script>
+        <script src="js/pokedex.js"></script>
+
+    </body>
+</html>

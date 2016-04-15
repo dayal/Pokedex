@@ -1,0 +1,113 @@
+
+@media (min-width: 1200px) {
+    .container {
+        width: 850px;
+    }
+}
+
+body {
+    background-color: #F1C40F;
+}
+
+h1 {
+    text-align: center;
+}
+
+img.center {
+    display: block;
+    margin: 0 auto;
+}
+
+.nav {
+    margin: 50px auto 30px;
+    width: 420px;
+    border-bottom: none;
+}
+
+#pokedex-entry {
+    margin-top: 40px;
+    display: none;
+}
+
+#pokedex-entry .name-and-number {
+    margin-bottom: 30px;
+}
+
+.stats {
+    background-color: #30a7d7;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.stats span {
+    line-height: 30px;
+    padding-left: 15px;
+}
+
+#description {
+    margin-top: 30px;
+}
+
+.stats-label {
+    color: white;
+    font-weight: bold;
+}
+
+.search {
+    margin-top: 30px;
+}
+
+.container h4 {
+    text-align: center;
+    margin: 30px 0;
+}
+
+#discover label {
+    float: left;
+    width: 150px;
+}
+
+#discover form {
+    margin-left: 100px;
+    margin-top: 50px;
+}
+
+.form-group .select {
+    width: 100px;
+    float: left;
+}
+
+.form-group.submit {
+    text-align: center;
+}
+
+.form-group.submit button {
+    margin-top: 40px;
+}
+
+.input-group {
+    width: 200px;
+    margin-left: 30px;
+    float: left;
+}
+
+.form-group {
+    clear: both;
+}
+
+.battle-search {
+    width: 50%;
+    float: left;
+    padding: 0 30px;
+}
+
+#startBattle {
+    display: none;
+}
+
+.battleLog {
+    font-size: 25px;
+    margin-top: 50px;
+    text-align: center;
+}
+
