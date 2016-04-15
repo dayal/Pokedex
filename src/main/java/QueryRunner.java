@@ -251,6 +251,7 @@ public class QueryRunner {
 		return resultsList;
 	}
 
+	// for debug use only
 	public static void main(String[] args) throws IOException {
 		QueryRunner queryRunner = new QueryRunner();
 		// queryRunner.searchByName("Pi");
